@@ -40,22 +40,14 @@ const onLogout = () => {
 };
 
 const items: MenuProps["items"] = [
-  // {
-  //   key: "1",
-  //   label: (
-  //     <a target="_blank" rel="noopener noreferrer" href="#">
-  //       个人中心
-  //     </a>
-  //   ),
-  // },
-  // {
-  //   key: "2",
-  //   label: (
-  //     <a target="_blank" rel="noopener noreferrer" href="#">
-  //       切换账户
-  //     </a>
-  //   ),
-  // },
+  {
+    key: "4",
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="/user/resetpassword">
+        修改密码
+      </a>
+    ),
+  },
   {
     key: "3",
     label: (

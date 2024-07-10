@@ -25,12 +25,24 @@ const getNavList = () => {
         {
           key: "/dashboard",
           icon: null,
-          label: "汇总数据",
+          label: "签到数据",
         },
         {
           key: "/dashboard/users",
           icon: null,
-          label: "用户数据",
+          label: "用户积分",
+        },
+      ],
+    },
+    {
+      key: "/user",
+      icon: <DesktopOutlined />,
+      label: "用户管理",
+      children: [
+        {
+          key: "/user/manage",
+          icon: null,
+          label: "用户管理",
         },
       ],
     },

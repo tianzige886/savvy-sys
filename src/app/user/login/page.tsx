@@ -1,10 +1,11 @@
 "use client";
 // import { useTranslations } from "next-intl";
-import { Button, Form, Input, Segmented, type FormProps } from "antd";
+import { Button, Form, Input, message, type FormProps } from "antd";
 // import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginApi, getUserInfo } from "@/services/users";
 import { LOCALSTORAGE_TOKEN, LOCALSTORAGE_USER } from "@/constants";
+import JsMd5 from "js-md5";
 
 import styles from "./index.module.less";
 
@@ -29,19 +30,26 @@ export default function Home() {
     }
   };
 
+  const mixPassword = (password, salt: string) => {
+    return JsMd5.md5(password + salt);
+  };
+
   const onFinish: FormProps<FieldType>["onFinish"] = async (values: any) => {
     const { username, password } = values;
-    loginApi(username, password).then(async (res: any) => {
+    const pass = mixPassword(password, username);
+    loginApi(username, pass).then(async (res: any) => {
       if (res?.code === 0) {
         window.localStorage.setItem(
           LOCALSTORAGE_TOKEN,
           res?.data?.access_token
         );
         await fetchUserInfo();
+        window.setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
+      } else {
+        message.error(res.message);
       }
-      window.setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
     });
     return;
   };
