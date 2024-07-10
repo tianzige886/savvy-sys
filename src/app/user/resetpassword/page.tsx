@@ -10,12 +10,12 @@ import { LOCALSTORAGE_TOKEN, LOCALSTORAGE_USER } from "@/constants";
 
 const Page: React.FC = () => {
   const [form] = Form.useForm();
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<{ username: string } | null>();
 
   const onFinish = async (values: ResetpasswordType) => {
-    const pass = mixPassword(values.password, user.username);
+    const pass = mixPassword(values.password, user?.username ?? "");
     try {
-      const res: any = await ResetPassword(user.username, pass);
+      const res: any = await ResetPassword(user?.username ?? "", pass);
       if (res.code === 0) {
         message.success("修改成功");
         window.localStorage.removeItem(LOCALSTORAGE_TOKEN);
@@ -51,7 +51,7 @@ const Page: React.FC = () => {
       >
         <Form
           form={form}
-          initialValues={{ username: user.username }}
+          initialValues={{ username: user?.username }}
           onFinish={(values) => onFinish(values)}
         >
           <Form.Item name={"username"} rules={[{ required: true }]}>
