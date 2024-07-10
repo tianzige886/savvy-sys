@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Col, Row, Button, Form, Input, message } from "antd";
 import React from "react";
 import Layout from "@/components/Layout";
@@ -10,8 +10,7 @@ import { LOCALSTORAGE_TOKEN, LOCALSTORAGE_USER } from "@/constants";
 
 const Page: React.FC = () => {
   const [form] = Form.useForm();
-  const userStorage = window.localStorage.getItem(LOCALSTORAGE_USER);
-  const user = userStorage && JSON.parse(userStorage);
+  const [user, setUser] = useState<any>();
 
   const onFinish = async (values: ResetpasswordType) => {
     const pass = mixPassword(values.password, user.username);
@@ -32,6 +31,13 @@ const Page: React.FC = () => {
   const mixPassword = (password: string, salt: string) => {
     return JsMd5.md5(password + salt);
   };
+
+  useEffect(() => {
+    const userStorage = window.localStorage.getItem(LOCALSTORAGE_USER);
+    const user = userStorage && JSON.parse(userStorage);
+    setUser(user);
+  }, []);
+
   return (
     <Layout curActive="/dashboard/users/manage">
       <div
