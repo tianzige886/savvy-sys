@@ -30,7 +30,7 @@ export default function Home() {
     }
   };
 
-  const mixPassword = (password, salt: string) => {
+  const mixPassword = (password: string, salt: string) => {
     return JsMd5.md5(password + salt);
   };
 

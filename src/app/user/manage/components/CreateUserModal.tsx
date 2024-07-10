@@ -6,7 +6,9 @@ import { CreateUserModalType, SubmitValuesType } from "./CreateUserModal.type";
 import { CreateUser } from "@/services/users/index";
 import JsMd5 from "js-md5";
 
-const CreateUserModal: React.FC = (props: CreateUserModalType) => {
+const CreateUserModal: React.FC<CreateUserModalType> = (
+  props: CreateUserModalType
+) => {
   const { visible, onClose, onOk } = props;
   const [form] = Form.useForm();
   const [initPassword, setInitPassword] = useState<string>("balance.game111");
