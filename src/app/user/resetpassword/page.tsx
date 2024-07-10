@@ -36,6 +36,7 @@ const Page: React.FC = () => {
     const userStorage = window.localStorage.getItem(LOCALSTORAGE_USER);
     const user = userStorage && JSON.parse(userStorage);
     setUser(user);
+    form.setFieldsValue({ username: user?.username });
   }, []);
 
   return (
