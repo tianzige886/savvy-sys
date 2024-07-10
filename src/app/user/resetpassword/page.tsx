@@ -40,7 +40,7 @@ const Page: React.FC = () => {
   }, []);
 
   return (
-    <Layout curActive="/dashboard/users/manage">
+    <Layout curActive="/dashboard/user/create">
       <div
         style={{
           width: 500,

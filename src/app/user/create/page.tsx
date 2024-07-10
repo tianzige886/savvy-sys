@@ -1,25 +1,25 @@
 "use client";
 import { useState, useRef } from "react";
-import { Col, Form, Modal, Row, Button, Input, message } from "antd";
+import { Button, Form, message, Input } from "antd";
 import React from "react";
-import { CreateUserModalType, SubmitValuesType } from "./CreateUserModal.type";
-import { CreateUser } from "@/services/users/index";
+import Layout from "@/components/Layout";
+import { SubmitValuesType } from "./CreateUserModal.type";
+import { CreateUser } from "@/services/users";
 import JsMd5 from "js-md5";
 
-const CreateUserModal: React.FC<CreateUserModalType> = (
-  props: CreateUserModalType
-) => {
-  const { visible, onClose, onOk } = props;
+const Page: React.FC = () => {
   const [form] = Form.useForm();
   const [initPassword, setInitPassword] = useState<string>("balance.game111");
-
   const onFinish = async (values: SubmitValuesType) => {
     const pass = mixPassword(values.username);
     try {
       const res: any = await CreateUser(values.username, pass);
       if (res.code === 0) {
         message.success("新增成功");
-        onOk({ username: values.username, password: initPassword });
+        alert(`用户名：${values.username} 密码：${initPassword}`);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1500);
       } else {
         message.error(res.message);
       }
@@ -32,12 +32,15 @@ const CreateUserModal: React.FC<CreateUserModalType> = (
     return JsMd5.md5(initPassword + salt);
   };
   return (
-    <>
-      <Modal
-        visible={visible}
-        onClose={() => onClose()}
-        onOk={() => form.submit()}
-        title={"新增用户"}
+    <Layout curActive="/dashboard/user/create">
+      <div
+        style={{
+          width: 500,
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
       >
         <Form
           form={form}
@@ -51,9 +54,12 @@ const CreateUserModal: React.FC<CreateUserModalType> = (
             <Input placeholder={"password"} disabled={true} />
           </Form.Item>
         </Form>
-      </Modal>
-    </>
+        <Button type={"primary"} onClick={() => form.submit()}>
+          提交
+        </Button>
+      </div>
+    </Layout>
   );
 };
 
-export default CreateUserModal;
+export default Page;

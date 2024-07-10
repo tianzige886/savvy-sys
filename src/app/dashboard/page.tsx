@@ -113,8 +113,8 @@ const Index: React.FC = () => {
         dataZoom: [
           {
             type: "inside",
-            start: 0,
-            end: 50,
+            start: 50,
+            end: 100,
           },
           {
             type: "slider",
@@ -197,8 +197,8 @@ const Index: React.FC = () => {
         dataZoom: [
           {
             type: "inside",
-            start: 0,
-            end: 50,
+            start: 50,
+            end: 100,
           },
           {
             type: "slider",

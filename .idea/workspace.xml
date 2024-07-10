@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a4dd01f8-3f4b-4770-bf02-f03320f9e641" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/manage/components/CreateUserModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/manage/components/CreateUserModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/manage/components/CreateUserModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/manage/components/CreateUserModal.type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/create/CreateUserModal.type.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/manage/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/create/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/user/resetpassword/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/resetpassword/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/menu.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +47,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/user/create" />
       <recent name="$PROJECT_DIR$/src/app" />
     </key>
   </component>
@@ -57,7 +62,7 @@
       <workItem from="1720427962537" duration="2979000" />
       <workItem from="1720434230798" duration="1443000" />
       <workItem from="1720490592040" duration="6622000" />
-      <workItem from="1720577019730" duration="12928000" />
+      <workItem from="1720577019730" duration="14609000" />
     </task>
     <servers />
   </component>

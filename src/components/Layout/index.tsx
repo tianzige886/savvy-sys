@@ -43,7 +43,7 @@ const items: MenuProps["items"] = [
   {
     key: "4",
     label: (
-      <a target="_blank" rel="noopener noreferrer" href="/user/resetpassword">
+      <a rel="noopener noreferrer" href="/user/resetpassword">
         修改密码
       </a>
     ),

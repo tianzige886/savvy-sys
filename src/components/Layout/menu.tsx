@@ -25,7 +25,7 @@ const getNavList = () => {
         {
           key: "/dashboard",
           icon: null,
-          label: "签到数据",
+          label: "签到统计数据",
         },
         {
           key: "/dashboard/users",
@@ -40,9 +40,9 @@ const getNavList = () => {
       label: "用户管理",
       children: [
         {
-          key: "/user/manage",
+          key: "/user/create",
           icon: null,
-          label: "用户管理",
+          label: "新增用户",
         },
       ],
     },
