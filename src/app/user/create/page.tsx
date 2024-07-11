@@ -47,8 +47,14 @@ const Page: React.FC = () => {
           initialValues={{ password: initPassword }}
           onFinish={(values) => onFinish(values)}
         >
-          <Form.Item name={"username"} rules={[{ required: true }]}>
-            <Input placeholder={"User Name"} />
+          <Form.Item
+            name={"username"}
+            rules={[
+              { required: true, message: "Please input Email" },
+              { type: "email", message: "邮箱格式不正确" },
+            ]}
+          >
+            <Input placeholder={"Email"} />
           </Form.Item>
           <Form.Item name={"password"} rules={[{ required: true }]}>
             <Input placeholder={"password"} disabled={true} />

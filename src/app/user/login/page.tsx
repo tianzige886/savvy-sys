@@ -78,12 +78,13 @@ export default function Home() {
                 rules={[
                   {
                     required: true,
-                    message: "请输入user name",
+                    message: "请输入email",
                   },
+                  { type: "email", message: "邮箱格式不正确" },
                 ]}
               >
                 <Input
-                  placeholder="请输入用户名"
+                  placeholder="请输入email"
                   size="large"
                   variant="filled"
                 />
