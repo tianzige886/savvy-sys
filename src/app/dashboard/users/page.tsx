@@ -1,8 +1,10 @@
 "use client";
 import { useState, useRef } from "react";
 import {
+  Button,
   Card,
   Col,
+  Divider,
   Form,
   Input,
   Row,
@@ -11,7 +13,7 @@ import {
   Tabs,
   Typography,
 } from "antd";
-import { getUserCheckinData } from "@/services/points";
+import { getUserCheckinData, getUserCreditData } from "@/services/points";
 import { UserPointsDataType } from "@/constants/types.td";
 import React from "react";
 import Layout from "@/components/Layout";
@@ -22,9 +24,9 @@ const { Text } = Typography;
 const Page: React.FC = () => {
   const [disabledStatus, setDisabledStatus] = useState<boolean>(false);
   const [form] = Form.useForm();
-  const [userDataList, setUserDataList] = useState<UserPointsDataType[]>();
+  const [userDataList, setUserDataList] = useState<UserPointsDataType[]>([]);
   const timer = useRef<any>();
-  const [tabKey, setTabKey] = useState<any>("1");
+  const [tabKey, setTabKey] = useState<any>(0);
   const [wallet, setWallet] = useState<string>("");
   const [signCreadit, setSignCreadit] = useState<any>(0);
   const [oauthCreadit, setOauthCreadit] = useState<any>(0);
@@ -76,9 +78,14 @@ const Page: React.FC = () => {
       key: "invite_credit",
     },
     {
+      title: "积分来源",
+      dataIndex: "invite_key",
+      key: "invite_key",
+    },
+    {
       title: "邀请地址",
-      dataIndex: "child_wallet",
-      key: "child_wallet",
+      dataIndex: "invite_child_wallet",
+      key: "invite_child_wallet",
     },
   ];
 
@@ -89,24 +96,29 @@ const Page: React.FC = () => {
       key: "day",
     },
     {
-      title: "绑定Twitter",
-      dataIndex: "bind_credit_twitter",
-      key: "bind_credit_twitter",
+      title: "绑定奖励",
+      dataIndex: "bind_credit",
+      key: "bind_credit",
     },
     {
-      title: "关注Twitter",
-      dataIndex: "follow_credit_twitter",
-      key: "follow_credit_twitter",
+      title: "关注奖励",
+      dataIndex: "follow_credit",
+      key: "follow_credit",
     },
     {
-      title: "绑定Discord",
-      dataIndex: "bind_credit_discord",
-      key: "bind_credit_discord",
+      title: "社交账号",
+      dataIndex: "bind_what",
+      key: "bind_what",
     },
     {
-      title: "加入Discord",
-      dataIndex: "follow_credit_discord",
-      key: "follow_credit_discord",
+      title: "操作类型",
+      dataIndex: "bind_way",
+      key: "bind_way",
+    },
+    {
+      title: "积分来源",
+      dataIndex: "bind_key",
+      key: "bind_key",
     },
   ];
 
@@ -123,11 +135,25 @@ const Page: React.FC = () => {
       setDisabledStatus(true);
       const res: any = await getUserCheckinData({ wallet: address, type });
       const entity: any = res?.data;
+      setUserDataList(entity?.itmes);
+      timer.current = window.setTimeout(() => {
+        setDisabledStatus(false);
+      }, 5000);
+    } catch (e) {
+      setDisabledStatus(false);
+      console.error(e);
+    }
+  };
+
+  const getCreditData = async (address?: string) => {
+    try {
+      setDisabledStatus(true);
+      const res: any = await getUserCreditData({ wallet: address });
+      const entity: any = res?.data;
       setSignCreadit(entity?.total_checkin_credit);
       setOauthCreadit(entity?.total_bind_credit);
       setInviteCreadit(entity?.total_invite_credit);
       setTotalCreadit(entity?.total_credit);
-      setUserDataList(entity?.itmes);
       timer.current = window.setTimeout(() => {
         setDisabledStatus(false);
       }, 5000);
@@ -140,7 +166,8 @@ const Page: React.FC = () => {
   const submit = async (values: any) => {
     try {
       setWallet(values.address);
-      getUsersData(values.address, tabKey);
+      getCreditData(values.address);
+      setUserDataList([]);
     } catch (e) {}
   };
 
@@ -156,32 +183,13 @@ const Page: React.FC = () => {
       getUsersData(wallet, key);
     }
   };
+  const gridStyle: React.CSSProperties = {
+    width: "33%",
+    textAlign: "center",
+  };
 
   return (
     <Layout curActive="/dashboard/users">
-      <Row gutter={24} justify={"center"}>
-        <Col span={6}>
-          <Card>
-            <Statistic title="累计签到积分" value={signCreadit} />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic title="累计邀请积分" value={inviteCreadit} />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic title="累计授权积分" value={oauthCreadit} />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic title="总积分" value={totalCreadit} />
-          </Card>
-        </Col>
-      </Row>
-      <br />
       <Text type="secondary">tips: 间隔每5秒中查询一次,以减轻服务器压力</Text>
       <br />
       <br />
@@ -205,24 +213,55 @@ const Page: React.FC = () => {
           />
         </Form.Item>
       </Form>
-      <Tabs
-        defaultActiveKey={tabKey}
-        type="card"
-        onChange={tabChange}
-        items={new Array(3).fill(null).map((_, i) => {
-          const id = String(i + 1);
-          return {
-            label: labels[id],
-            key: id,
-          };
-        })}
-      />
-      <Table
-        pagination={false}
-        columns={currentColunms}
-        dataSource={userDataList}
-        rowKey={(record) => record.day}
-      />
+      <Card title={`总积分：${totalCreadit}`} style={{ textAlign: "center" }}>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          <Statistic title="累计签到积分" value={signCreadit} />
+          <Button
+            style={{ marginTop: 16 }}
+            type="primary"
+            onClick={() => tabChange(1)}
+            disabled={disabledStatus}
+          >
+            查看详情
+          </Button>
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          <Statistic title="累计邀请积分" value={inviteCreadit} />
+          <Button
+            style={{ marginTop: 16 }}
+            type="primary"
+            onClick={() => tabChange(2)}
+            disabled={disabledStatus}
+          >
+            查看详情
+          </Button>
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          <Statistic title="累计授权积分" value={oauthCreadit} />
+          <Button
+            style={{ marginTop: 16 }}
+            type="primary"
+            onClick={() => tabChange(3)}
+            disabled={disabledStatus}
+          >
+            查看详情
+          </Button>
+        </Card.Grid>
+      </Card>
+      <br />
+      {tabKey > 0 && (
+        <Divider orientation="left">
+          {tabKey == 1 ? "签到记录" : tabKey == 2 ? "邀请记录" : "授权记录"}
+        </Divider>
+      )}
+      {tabKey > 0 && (
+        <Table
+          pagination={false}
+          columns={currentColunms}
+          dataSource={userDataList}
+          rowKey={(record) => record.day}
+        />
+      )}
     </Layout>
   );
 };

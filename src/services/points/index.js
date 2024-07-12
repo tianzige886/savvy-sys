@@ -20,3 +20,8 @@ export const getCheckinData = (params) => {
 export const getUserCheckinData = (params) => {
   return req.post("/api/find_checkin", qs.stringify(params));
 };
+
+/** 获取 GET /api/find_credit */
+export const getUserCreditData = (params) => {
+  return req.post("/api/find_credit", qs.stringify(params));
+};
