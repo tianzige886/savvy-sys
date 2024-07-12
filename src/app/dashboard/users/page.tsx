@@ -73,9 +73,14 @@ const Page: React.FC = () => {
       key: "day",
     },
     {
-      title: "奖励积分",
-      dataIndex: "invite_credit",
-      key: "invite_credit",
+      title: "直接邀请奖励",
+      dataIndex: "invite_credit_direct",
+      key: "invite_credit_direct",
+    },
+    {
+      title: "间接邀请奖励",
+      dataIndex: "invite_credit_indirect",
+      key: "invite_credit_indirect",
     },
     {
       title: "积分来源",
@@ -171,6 +176,13 @@ const Page: React.FC = () => {
     } catch (e) {}
   };
 
+  const inputChange = (e: any) => {
+    const value = e.target.value;
+    setWallet("");
+    setUserDataList([]);
+    setTabKey(0);
+  };
+
   const tabChange = (key: any) => {
     setTabKey(key);
     setUserDataList([]);
@@ -208,6 +220,7 @@ const Page: React.FC = () => {
             size={"large"}
             onSearch={() => form.submit()}
             enterButton
+            onChange={inputChange}
             disabled={disabledStatus}
             placeholder={"0x"}
           />
@@ -216,36 +229,42 @@ const Page: React.FC = () => {
       <Card title={`总积分：${totalCreadit}`} style={{ textAlign: "center" }}>
         <Card.Grid hoverable={false} style={gridStyle}>
           <Statistic title="累计签到积分" value={signCreadit} />
-          <Button
-            style={{ marginTop: 16 }}
-            type="primary"
-            onClick={() => tabChange(1)}
-            disabled={disabledStatus}
-          >
-            查看详情
-          </Button>
+          {wallet && (
+            <Button
+              style={{ marginTop: 16 }}
+              type="primary"
+              onClick={() => tabChange(1)}
+              disabled={disabledStatus}
+            >
+              查看详情
+            </Button>
+          )}
         </Card.Grid>
         <Card.Grid hoverable={false} style={gridStyle}>
           <Statistic title="累计邀请积分" value={inviteCreadit} />
-          <Button
-            style={{ marginTop: 16 }}
-            type="primary"
-            onClick={() => tabChange(2)}
-            disabled={disabledStatus}
-          >
-            查看详情
-          </Button>
+          {wallet && (
+            <Button
+              style={{ marginTop: 16 }}
+              type="primary"
+              onClick={() => tabChange(2)}
+              disabled={disabledStatus}
+            >
+              查看详情
+            </Button>
+          )}
         </Card.Grid>
         <Card.Grid hoverable={false} style={gridStyle}>
           <Statistic title="累计授权积分" value={oauthCreadit} />
-          <Button
-            style={{ marginTop: 16 }}
-            type="primary"
-            onClick={() => tabChange(3)}
-            disabled={disabledStatus}
-          >
-            查看详情
-          </Button>
+          {wallet && (
+            <Button
+              style={{ marginTop: 16 }}
+              type="primary"
+              onClick={() => tabChange(3)}
+              disabled={disabledStatus}
+            >
+              查看详情
+            </Button>
+          )}
         </Card.Grid>
       </Card>
       <br />

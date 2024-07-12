@@ -51,12 +51,7 @@ const items: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <a
-        target="_blank"
-        onClick={onLogout}
-        rel="noopener noreferrer"
-        href="/user/login"
-      >
+      <a onClick={onLogout} rel="noopener noreferrer" href="/user/login">
         退出登录
       </a>
     ),
