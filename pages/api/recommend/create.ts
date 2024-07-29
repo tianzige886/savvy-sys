@@ -3,7 +3,7 @@ import { models } from "../../config/db";
 const { HomeRecommend } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   const { sequence, game_id } = req.body;
 
   try {

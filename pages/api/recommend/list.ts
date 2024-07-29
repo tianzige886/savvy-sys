@@ -2,7 +2,7 @@ import { authMiddleware } from "../../lib/middleware";
 import { models, sequelize } from "../../config/db";
 import { QueryTypes } from "sequelize";
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   const { review_status } = req.query;
   let query = "";
   if (review_status) {

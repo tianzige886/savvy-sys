@@ -2,7 +2,7 @@ import { authMiddleware } from "../../lib/middleware";
 import { models, sequelize } from "../../config/db";
 const { WeekRecommend } = models;
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   const { review_status } = req.query;
   const where: any = {};
   if (review_status) {
