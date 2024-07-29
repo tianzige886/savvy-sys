@@ -4,7 +4,7 @@ const { WeekRecommend } = models;
 const { Op } = require("sequelize");
 
 export default authMiddleware(async (req: any, res: any) => {
-  const { sequence, game_id, id, cover_url } = req.body;
+  const { sequence, game_ids, id, cover_url } = req.body;
 
   try {
     // @ts-ignore
@@ -13,7 +13,7 @@ export default authMiddleware(async (req: any, res: any) => {
       // @ts-ignore
       await weekRecommend.update({
         sequence,
-        game_id,
+        game_ids,
         cover_url,
       });
       res.status(200).json({ data: null, code: 0, message: "success" });
