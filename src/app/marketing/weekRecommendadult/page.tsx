@@ -39,7 +39,7 @@ const Page: React.FC = () => {
       },
     },
     {
-      title: "Game Id列表",
+      title: "关联游戏列表",
       dataIndex: "game_ids",
       key: "game_ids",
       render: (txt: any, record: any) => {

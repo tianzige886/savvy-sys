@@ -179,7 +179,7 @@ const Page: React.FC = () => {
     debounceFetcher(value);
   };
 
-  const createSubmit = async (values) => {
+  const createSubmit = async (values: any) => {
     try {
       setButtonLoading(true);
       if (record?.id) {
@@ -213,7 +213,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const deleteRecommendFunc = async (id) => {
+  const deleteRecommendFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
       const res = await deleteRecommend({

@@ -210,7 +210,7 @@ const Page: React.FC = () => {
     debounceFetcher(value);
   };
 
-  const createSubmit = async (values) => {
+  const createSubmit = async (values: any) => {
     try {
       if (!cover) {
         alert("请上传封面");

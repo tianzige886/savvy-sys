@@ -146,7 +146,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const initForm = (rcd) => {
+  const initForm = (rcd: any) => {
     searchGame(rcd?.name);
     createForm.setFieldsValue({
       game_id: rcd?.game_id,
@@ -179,7 +179,7 @@ const Page: React.FC = () => {
     debounceFetcher(value);
   };
 
-  const createSubmit = async (values) => {
+  const createSubmit = async (values: any) => {
     try {
       setButtonLoading(true);
       if (record?.id) {
@@ -213,7 +213,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const deleteHotFunc = async (id) => {
+  const deleteHotFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
       const res = await deleteHot({

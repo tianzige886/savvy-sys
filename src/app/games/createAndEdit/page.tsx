@@ -20,7 +20,7 @@ const PicType = {
   pictures4: "pictures4",
 };
 
-const { Search } = Input;
+// const { Search } = Input;
 const Page: React.FC = () => {
   const [form] = Form.useForm();
   const [logo, setLogo] = useState<string>("");
@@ -29,7 +29,7 @@ const Page: React.FC = () => {
   const [pictures2, setPictures2] = useState<string>("");
   const [pictures3, setPictures3] = useState<string>("");
   const [pictures4, setPictures4] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [logoLoading, setLogoLoading] = useState<boolean>(false);
   const [gameplayShowLoading, setGameplayShowLoading] =
     useState<boolean>(false);
@@ -43,7 +43,7 @@ const Page: React.FC = () => {
   const [detail, setDetail] = useState<any>();
   const [gameId, setGameId] = useState<any>();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values: any) => {
     try {
       const {
         status,
@@ -55,7 +55,7 @@ const Page: React.FC = () => {
         release_time,
         ...rest
       } = values;
-      console.log(tags);
+      // console.log(tags);
       const params = {
         id: gameId,
         tags: JSON.stringify(tags),
