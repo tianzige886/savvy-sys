@@ -3,7 +3,7 @@ import { models } from "../../config/db";
 const { Button, Menu } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req: any, res: any) => {
+export default authMiddleware(async (req, res) => {
   try {
     const menus = await Menu.findAll({ order: [["id", "DESC"]] });
     for (let i = 0; i < menus.length; i++) {

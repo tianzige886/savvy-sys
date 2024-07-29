@@ -2,37 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4dd01f8-3f4b-4770-bf02-f03320f9e641" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/banners/adult.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/banners/adult.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/banners/create.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/banners/create.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/banners/delete.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/banners/delete.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/banners/list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/banners/list.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/banners/update.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/banners/update.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/awsimg.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/awsimg.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/create.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/create.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/delete.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/delete.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/detail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/detail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/list.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/listByIds.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/listByIds.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/update.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/update.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/hot/create.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hot/create.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/hot/delete.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hot/delete.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/hot/list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hot/list.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/hot/update.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hot/update.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/permission/add.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/permission/add.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/permission/add_permissions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/permission/add_permissions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/api/permission/buttons.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/permission/buttons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/api/permission/get_permissions.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/permission/get_permissions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/upload/image.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/upload/image.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/upload/upload_by_filename.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/upload/upload_by_filename.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/weekRecommend/awsimg.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/weekRecommend/awsimg.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/utils/upload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/upload.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/games/createAndEdit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/games/createAndEdit/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +81,7 @@
       <workItem from="1721872904582" duration="22871000" />
       <workItem from="1721959535478" duration="2937000" />
       <workItem from="1721972322361" duration="2205000" />
-      <workItem from="1722224499730" duration="6017000" />
+      <workItem from="1722224499730" duration="7032000" />
     </task>
     <servers />
   </component>
