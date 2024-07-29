@@ -17,7 +17,7 @@ export default authMiddleware(async (req: any, res: any) => {
     const game = await Game.findAll({
       where: {
         id: {
-          [Op.in]: ids.split(",").map((item) => {
+          [Op.in]: ids.split(",").map((item: string) => {
             return parseInt(item, 10);
           }),
         },
