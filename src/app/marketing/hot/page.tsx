@@ -64,7 +64,7 @@ const Page: React.FC = () => {
       title: "封面",
       dataIndex: "cover_url",
       key: "cover_url",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 200, height: 100, objectFit: "cover" }}

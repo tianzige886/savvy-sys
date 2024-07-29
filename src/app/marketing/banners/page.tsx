@@ -215,7 +215,7 @@ const Page: React.FC = () => {
   const deleteBannerFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
-      const res = await deleteBanner({
+      const res: any = await deleteBanner({
         id: Number(id),
       });
       if (res?.code === 0) {

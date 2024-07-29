@@ -29,10 +29,10 @@ export default authMiddleware(async (req: any, res: any) => {
       });
     }
 
-    let menus = [];
-    let buttons = [];
+    let menus: any[] = [];
+    let buttons: any[] = [];
     for (let i = 0; i < permissions.length; i++) {
-      const menu = permissions[i];
+      const menu: any = permissions[i];
       menus.push({ menu_id: menu.id, user_id: userId });
       if (menu.buttons.length > 0) {
         for (let j = 0; j < menu.buttons.length; j++) {

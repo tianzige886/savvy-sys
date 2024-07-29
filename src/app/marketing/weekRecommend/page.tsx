@@ -57,7 +57,7 @@ const Page: React.FC = () => {
       title: "封面",
       dataIndex: "cover_url",
       key: "cover_url",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 200, height: 100, objectFit: "cover" }}
@@ -164,7 +164,7 @@ const Page: React.FC = () => {
     searchGameByIds(rcd?.game_ids);
     setCover(rcd?.cover_url);
     createForm.setFieldsValue({
-      game_ids: rcd?.game_ids.split(",").map((item) => Number(item)),
+      game_ids: rcd?.game_ids.split(",").map((item: any) => Number(item)),
       sequence: rcd?.sequence,
     });
   };

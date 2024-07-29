@@ -64,7 +64,7 @@ const Page: React.FC = () => {
       title: "封面",
       dataIndex: "cover_url",
       key: "cover_url",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 200, height: 100, objectFit: "cover" }}
@@ -196,7 +196,7 @@ const Page: React.FC = () => {
           }, 1000);
         }
       } else {
-        const res = await createRecommend({
+        const res: any = await createRecommend({
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
         });

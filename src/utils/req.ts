@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { message } from "antd";
 import { LOCALSTORAGE_TOKEN } from "@/constants/index";
 
+// 创建 axios 实例
 const instance = axios.create({
   // baseURL: process.env.BASE_API_URL,
   timeout: 20000,
@@ -10,10 +11,11 @@ const instance = axios.create({
   },
 });
 
+// 请求拦截器
 instance.interceptors.request.use(
   function (conf: any) {
     const config = conf;
-    let token = window.localStorage.getItem(LOCALSTORAGE_TOKEN);
+    const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN);
     if (token) {
       config.headers.Authorization = token;
     }
@@ -24,11 +26,16 @@ instance.interceptors.request.use(
   }
 );
 
+interface ResponseInterface<T = any> {
+  code: number;
+  data: any;
+  message: string;
+}
+
+// 响应拦截器
 instance.interceptors.response.use(
-  function (response: any) {
-    if (response.data.msg) {
-      message.success(response.data.msg);
-    }
+  function (response: AxiosResponse<ResponseInterface>): any {
+    // 将 data 的内容直接返回
     return response.data;
   },
   function (error: any) {
@@ -36,9 +43,15 @@ instance.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           // 客户端环境
-          window && (location.href = "/user/login");
+          if (typeof window !== "undefined") {
+            window.location.href = "/user/login";
+          }
+          break;
         case 500:
           message.error(error.response.data.msg);
+          break;
+        default:
+          message.error("An error occurred");
       }
     }
     return Promise.reject(error);

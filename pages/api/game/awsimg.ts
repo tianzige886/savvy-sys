@@ -52,9 +52,9 @@ export default authMiddleware(async (req: any, res: any) => {
     }
     if (gameEntity.pictures) {
       const pics = JSON.parse(gameEntity.pictures);
-      let picsList = [];
+      let picsList: any[] = [];
       for (let i = 0; i < pics.length; i++) {
-        let item = pics[i];
+        let item: any = pics[i];
         if (
           item &&
           item != null &&
