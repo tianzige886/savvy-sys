@@ -52,17 +52,33 @@ export default authMiddleware(async (req: any, res: any) => {
     }
     if (gameEntity.pictures) {
       const pics = JSON.parse(gameEntity.pictures);
-      const picsList = pics.map((item: any) => {
-        if (item.indexOf("bucket-oojxgn") < 0) {
-          return item;
+      let picsList = [];
+      for (let i = 0; i < pics.length; i++) {
+        let item = pics[i];
+        if (
+          item &&
+          item != null &&
+          item != undefined &&
+          item.indexOf("bucket-oojxgn") < 0
+        ) {
+          picsList.push(item);
+        }
+      }
+      pics.forEach((p: any) => {
+        if (
+          p &&
+          p != null &&
+          p != undefined &&
+          p.indexOf("bucket-oojxgn") >= 0
+        ) {
+          hasList.push(p);
         }
       });
-      hasList = pics.map((item: any) => {
-        if (item.indexOf("bucket-oojxgn") >= 0) {
-          return item;
-        }
-      });
-      uploadEntity.pictures = await uploadByFilename(req, picsList);
+      if (picsList.length > 0) {
+        uploadEntity.pictures = await uploadByFilename(req, picsList);
+      } else {
+        uploadEntity.pictures = [];
+      }
     }
     const params = {
       gameplay_show: uploadEntity.gameplay_show[0],
