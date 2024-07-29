@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 
 export default authMiddleware(async (req: any, res: any) => {
   try {
-    const { ids } = req.query;
+    const { ids = "" } = req.query;
     if (!ids) {
       return;
     }
