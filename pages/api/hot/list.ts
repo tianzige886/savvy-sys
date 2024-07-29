@@ -1,5 +1,6 @@
 import { authMiddleware } from "../../lib/middleware";
 import { models, sequelize } from "../../config/db";
+import { QueryTypes } from "sequelize";
 
 export default authMiddleware(async (req: any, res: any) => {
   const { review_status } = req.query;
@@ -33,7 +34,7 @@ export default authMiddleware(async (req: any, res: any) => {
   try {
     // @ts-ignore
     const homeHotWithGames = await sequelize.query(query, {
-      type: sequelize.QueryTypes.SELECT,
+      type: QueryTypes?.SELECT,
     });
     res
       .status(200)
