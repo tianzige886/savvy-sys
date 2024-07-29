@@ -1,21 +1,9 @@
 import {
-  Association,
   CreationOptional,
   DataTypes,
-  HasManyGetAssociationsMixin,
-  HasManySetAssociationsMixin,
-  HasManyAddAssociationMixin,
-  HasManyAddAssociationsMixin,
-  HasManyCreateAssociationMixin,
-  HasManyRemoveAssociationMixin,
-  HasManyRemoveAssociationsMixin,
-  HasManyHasAssociationMixin,
-  HasManyHasAssociationsMixin,
-  HasManyCountAssociationsMixin,
   InferCreationAttributes,
   InferAttributes,
   Model,
-  NonAttribute,
   Sequelize,
 } from "sequelize";
 

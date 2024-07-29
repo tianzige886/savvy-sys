@@ -13,6 +13,7 @@ export default authMiddleware(async (req: any, res: any) => {
       return parseInt(item, 10);
     });
 
+    // @ts-ignore
     const game = await Game.findAll({
       id: ids.split(",").map((item) => {
         return parseInt(item, 10);
