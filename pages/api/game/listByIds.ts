@@ -9,15 +9,19 @@ export default authMiddleware(async (req: any, res: any) => {
     if (!ids) {
       return;
     }
-    const idddds = ids.split(",").map((item: any) => {
-      return parseInt(item, 10);
-    });
+    // const idddds = ids.split(",").map((item: any) => {
+    //   return parseInt(item, 10);
+    // });
 
     // @ts-ignore
     const game = await Game.findAll({
-      id: ids.split(",").map((item) => {
-        return parseInt(item, 10);
-      }),
+      where: {
+        id: {
+          [Op.in]: ids.split(",").map((item) => {
+            return parseInt(item, 10);
+          }),
+        },
+      },
       order: [["updated_at", "DESC"]],
     });
     res.status(200).json({
