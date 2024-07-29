@@ -137,7 +137,7 @@ const Page: React.FC = () => {
   const getAllRecommendGames = async () => {
     try {
       setLoading(true);
-      const res = await getRecommendGameList({});
+      const res: any = await getRecommendGameList({});
       setRecommendGameList(res?.data);
       setLoading(false);
     } catch (e) {
@@ -146,7 +146,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const initForm = (rcd) => {
+  const initForm = (rcd: any) => {
     searchGame(rcd?.name);
     createForm.setFieldsValue({
       game_id: rcd?.game_id,
@@ -183,7 +183,7 @@ const Page: React.FC = () => {
     try {
       setButtonLoading(true);
       if (record?.id) {
-        const res = await updateRecommend({
+        const res: any = await updateRecommend({
           id: record?.id,
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
@@ -216,7 +216,7 @@ const Page: React.FC = () => {
   const deleteRecommendFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
-      const res = await deleteRecommend({
+      const res: any = await deleteRecommend({
         id: Number(id),
       });
       if (res?.code === 0) {

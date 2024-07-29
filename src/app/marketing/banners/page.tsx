@@ -63,7 +63,7 @@ const Page: React.FC = () => {
       title: "封面",
       dataIndex: "cover_url",
       key: "cover_url",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 300, height: 150, objectFit: "cover" }}
@@ -136,7 +136,7 @@ const Page: React.FC = () => {
   const getAllBannerGames = async () => {
     try {
       setLoading(true);
-      const res = await getBannerGameList({});
+      const res: any = await getBannerGameList({});
       setBannerGameList(res?.data);
       setLoading(false);
     } catch (e) {
@@ -182,7 +182,7 @@ const Page: React.FC = () => {
     try {
       setButtonLoading(true);
       if (record?.id) {
-        const res = await updateBanner({
+        const res: any = await updateBanner({
           id: record?.id,
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
@@ -195,7 +195,7 @@ const Page: React.FC = () => {
           }, 1000);
         }
       } else {
-        const res = await createBanner({
+        const res: any = await createBanner({
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
         });

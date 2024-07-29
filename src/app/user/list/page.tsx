@@ -11,6 +11,7 @@ import {
   Modal,
   Row,
   Space,
+  Spin,
   Table,
   Upload,
   UploadFile,
@@ -44,6 +45,9 @@ const Page: React.FC = () => {
   const [userPermissions, setUserPermissions] = useState<any[]>([]);
   const [permitOpen, setPermitOpen] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
+  const [saveLoading, setSaveLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
   const [checkOptions, setCheckOptions] = useState<any>({});
 
@@ -117,6 +121,7 @@ const Page: React.FC = () => {
 
   const getPermis = async (record: any) => {
     try {
+      setLoading(true);
       const res: any = await getPermissionList();
       const permitRes: any = await getUserPermits(record.id);
       const list: any[] = res?.data?.list || [];
@@ -125,7 +130,9 @@ const Page: React.FC = () => {
       const options = operateOptions(list, permits);
       setCheckOptions(options);
       setUserPermissions(list);
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.error(e);
     }
   };
@@ -189,12 +196,18 @@ const Page: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    const res: any = await deleteUserById(currentUser.id);
-    if (res.data.code === 0) {
-      message.success("删除成功");
-      getUserData();
+    try {
+      setDeleteLoading(true);
+      const res: any = await deleteUserById(currentUser.id);
+      if (res.data.code === 0) {
+        message.success("删除成功");
+        getUserData();
+      }
+      setDeleteLoading(false);
+      setOpen(false);
+    } catch (error) {
+      setDeleteLoading(false);
     }
-    setOpen(false);
   };
 
   const handleCancel = () => {
@@ -202,31 +215,37 @@ const Page: React.FC = () => {
   };
 
   const handlePermitSave = async () => {
-    const params: any = {};
-    params.userId = currentUser.id;
-    params.permissions = [];
-    checkOptions.forEach((item: any) => {
-      if (item.checked) {
-        const obj: any = {};
-        obj.buttons = [];
-        obj.id = item.id;
-        if (item.plainOptions.length) {
-          item.plainOptions.forEach((b: any) => {
-            if (b.checked) {
-              obj.buttons.push(b.value);
-            }
-          });
+    try {
+      setSaveLoading(true);
+      const params: any = {};
+      params.userId = currentUser.id;
+      params.permissions = [];
+      checkOptions.forEach((item: any) => {
+        if (item.checked) {
+          const obj: any = {};
+          obj.buttons = [];
+          obj.id = item.id;
+          if (item.plainOptions.length) {
+            item.plainOptions.forEach((b: any) => {
+              if (b.checked) {
+                obj.buttons.push(b.value);
+              }
+            });
+          }
+          params.permissions.push(obj);
         }
-        params.permissions.push(obj);
+      });
+      console.log("********", params);
+      const res: any = await addUserPermissions(params);
+      if (res.data.code === 0) {
+        message.success("保存成功");
+        setCheckOptions([]);
       }
-    });
-    console.log("********", params);
-    const res: any = await addUserPermissions(params);
-    if (res.data.code === 0) {
-      message.success("保存成功");
-      setCheckOptions([]);
+      setSaveLoading(false);
+      setPermitOpen(false);
+    } catch (error) {
+      setSaveLoading(false);
     }
-    setPermitOpen(false);
   };
 
   const handlePermitCancel = () => {
@@ -267,43 +286,88 @@ const Page: React.FC = () => {
       <Modal
         title="删除用户"
         open={open}
-        onOk={handleDelete}
         onCancel={handleCancel}
+        footer={[
+          <Button key={1} onClick={handleCancel}>
+            取消
+          </Button>,
+          <Button
+            key={2}
+            type="primary"
+            loading={deleteLoading}
+            onClick={handleDelete}
+          >
+            删除
+          </Button>,
+        ]}
       >
         <p>确定要删除当前用户？删除以后无法找回。</p>
       </Modal>
       <Modal
         title="修改权限"
         open={permitOpen}
-        onOk={handlePermitSave}
         onCancel={handlePermitCancel}
+        footer={[
+          <Button key={1} onClick={handlePermitCancel}>
+            取消
+          </Button>,
+          <Button
+            key={2}
+            type="primary"
+            loading={saveLoading}
+            onClick={handlePermitSave}
+          >
+            保存
+          </Button>,
+        ]}
       >
-        {checkOptions.length > 0 &&
-          checkOptions.map((item: any, index: any) => (
-            <div key={index} style={{ marginTop: "30px" }}>
-              <Divider />
-              <Checkbox
-                onChange={() => onCheckAllChange(item)}
-                checked={item.checked}
-                value={item.id}
-              >
-                {item.label}
-              </Checkbox>
-              <Divider />
-              <div style={{ marginTop: "20px", marginLeft: "20px" }}></div>
-              {item.plainOptions.length > 0 &&
-                item.plainOptions.map((button: any, idx: any) => (
-                  <Checkbox
-                    key={idx}
-                    onChange={() => onChange(item, button)}
-                    checked={button.checked}
-                    value={button.value}
+        {!loading ? (
+          <>
+            {checkOptions.length > 0 &&
+              checkOptions.map((item: any, index: any) => (
+                <div key={index}>
+                  <div
+                    style={{ backgroundColor: "#EFF9FF", padding: "0 10px" }}
                   >
-                    {button.label}
-                  </Checkbox>
-                ))}
-            </div>
-          ))}
+                    <Divider style={{ margin: "10px 0" }} />
+                    <Checkbox
+                      onChange={() => onCheckAllChange(item)}
+                      checked={item.checked}
+                      value={item.id}
+                    >
+                      {item.label}
+                    </Checkbox>
+                    <Divider style={{ margin: "10px 0" }} />
+                  </div>
+
+                  <div style={{ marginLeft: "0px", padding: "0 10px" }}>
+                    {item.plainOptions.length > 0 &&
+                      item.plainOptions.map((button: any, idx: any) => (
+                        <Checkbox
+                          key={idx}
+                          onChange={() => onChange(item, button)}
+                          checked={button.checked}
+                          value={button.value}
+                        >
+                          {button.label}
+                        </Checkbox>
+                      ))}
+                  </div>
+                </div>
+              ))}
+          </>
+        ) : (
+          <div
+            style={{
+              height: "100px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Spin />
+          </div>
+        )}
       </Modal>
     </Layout>
   );

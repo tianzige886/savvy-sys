@@ -239,16 +239,8 @@ const Page: React.FC = () => {
     padding: "8px 4px",
   };
 
-  const uploadAws = async () => {
-    const res: any = await uploadAwsByNames({
-      gameId: 36,
-    });
-    console.log("*************", res);
-  };
-
   return (
     <Layout curActive="/games/list">
-      {/* <Button onClick={uploadAws}>上传</Button> */}
       <br />
       <Table
         columns={columns}

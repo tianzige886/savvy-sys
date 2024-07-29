@@ -23,6 +23,7 @@ const Page: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [jsonLoading, setJsonLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
+  const [pathLaoding, setPathLoading] = useState(false);
 
   useEffect(() => {
     const user = window.localStorage.getItem("balance_sys_user");
@@ -96,17 +97,17 @@ const Page: React.FC = () => {
         "/uploads/1722045359488-image (1).avif",
       ];
 
-      setJsonLoading(true);
+      setPathLoading(true);
       const res: any = await uploadImageByNames({
         files: JSON.stringify(param),
       });
       if (res.data.code === 0) {
         message.success("JSON数据上传成功");
       }
-      setJsonLoading(false);
+      setPathLoading(false);
     } catch (error) {
       message.error("JSON数据上传失败");
-      setJsonLoading(false);
+      setPathLoading(false);
     }
   };
 
@@ -132,7 +133,7 @@ const Page: React.FC = () => {
           <PermitButton
             onClick={uploadByFileName}
             type="primary"
-            loading={jsonLoading}
+            loading={pathLaoding}
             path={pathname}
             permit={2}
           >

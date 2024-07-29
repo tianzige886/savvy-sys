@@ -40,6 +40,7 @@ const Page: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
 
   const pathname: any = usePathname();
+  const [saveLoading, setSaveLoading] = useState<boolean>(false);
 
   const formItemLayout = {
     labelCol: {
@@ -154,21 +155,27 @@ const Page: React.FC = () => {
   };
 
   const handleSave = async () => {
-    const { childs } = nativeMenus();
-    const route = childs.find((item: any) => item.name === selectMenuName);
-    const res: any = await addMenuPermission({
-      buttons: buttonValues,
-      name: route.name,
-      path: route.path,
-      label: route.label,
-    });
-    setOpen(false);
-    setDefaultButton([]);
-    if (res.data.code === 0) {
-      getPermis();
-      message.success("添加成功");
-    } else {
-      message.error("添加失败");
+    try {
+      setSaveLoading(true);
+      const { childs } = nativeMenus();
+      const route = childs.find((item: any) => item.name === selectMenuName);
+      const res: any = await addMenuPermission({
+        buttons: buttonValues,
+        name: route.name,
+        path: route.path,
+        label: route.label,
+      });
+      setSaveLoading(false);
+      setOpen(false);
+      setDefaultButton([]);
+      if (res.data.code === 0) {
+        getPermis();
+        message.success("添加成功");
+      } else {
+        message.error("添加失败");
+      }
+    } catch (error) {
+      setSaveLoading(false);
     }
   };
 
@@ -211,8 +218,20 @@ const Page: React.FC = () => {
       <Modal
         title="添加权限"
         open={open}
-        onOk={handleSave}
         onCancel={handleCancel}
+        footer={[
+          <Button key={1} onClick={handleCancel}>
+            取消
+          </Button>,
+          <Button
+            key={2}
+            type="primary"
+            loading={saveLoading}
+            onClick={handleSave}
+          >
+            保存
+          </Button>,
+        ]}
       >
         <Form {...formItemLayout} variant="filled">
           <Form.Item

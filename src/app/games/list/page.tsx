@@ -51,7 +51,7 @@ const Page: React.FC = () => {
       title: "封面",
       dataIndex: "cover_url",
       key: "cover_url",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 200, height: 100, objectFit: "cover" }}
@@ -74,7 +74,7 @@ const Page: React.FC = () => {
       title: "logo",
       dataIndex: "logo",
       key: "logo",
-      render: (txt) => {
+      render: (txt: string) => {
         return (
           <img
             style={{ width: 50, height: 50, objectFit: "cover" }}
@@ -145,7 +145,7 @@ const Page: React.FC = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await getGameList({ pageNumber, pageSize });
+      const res: any = await getGameList({ pageNumber, pageSize });
       if (res?.code === 0) {
         setData(res?.data?.list);
         setTotal(res?.data?.totalCount);

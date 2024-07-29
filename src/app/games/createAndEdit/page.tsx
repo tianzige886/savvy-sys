@@ -88,8 +88,8 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     getTagList();
-    const id = searchParams.get("id");
-    setGameId(Number(id));
+    const id = searchParams?.get("id");
+    id && setGameId(Number(id));
     if (id) {
       getDetail(id);
     }
@@ -125,7 +125,7 @@ const Page: React.FC = () => {
       setLogo(d?.logo);
       setGameplayShow(d?.gameplay_show);
       const pics = (d?.pictures && JSON.parse(d?.pictures)) || [];
-      pics?.map((item, index) => {
+      pics?.map((item: any, index: number) => {
         if (index < pics?.length) {
           switch (index + 1) {
             case 1:
@@ -160,7 +160,7 @@ const Page: React.FC = () => {
   };
 
   const onPicChange: any = (
-    { fileList: newFileList, file },
+    { fileList: newFileList, file }: any,
     picType: string
   ) => {
     if (file.status === "done") {

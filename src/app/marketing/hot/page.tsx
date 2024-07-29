@@ -137,7 +137,7 @@ const Page: React.FC = () => {
   const getAllHotGames = async () => {
     try {
       setLoading(true);
-      const res = await getHotGameList({});
+      const res: any = await getHotGameList({});
       setHotGameList(res?.data);
       setLoading(false);
     } catch (e) {
@@ -183,7 +183,7 @@ const Page: React.FC = () => {
     try {
       setButtonLoading(true);
       if (record?.id) {
-        const res = await updateHot({
+        const res: any = await updateHot({
           id: record?.id,
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
@@ -196,7 +196,7 @@ const Page: React.FC = () => {
           }, 1000);
         }
       } else {
-        const res = await createHot({
+        const res: any = await createHot({
           game_id: Number(values?.game_id),
           sequence: Number(values?.sequence),
         });
@@ -216,7 +216,7 @@ const Page: React.FC = () => {
   const deleteHotFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
-      const res = await deleteHot({
+      const res: any = await deleteHot({
         id: Number(id),
       });
       if (res?.code === 0) {

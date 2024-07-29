@@ -67,14 +67,14 @@ const Page: React.FC = () => {
       },
     },
     {
-      title: "Game Id列表",
+      title: "关联游戏列表",
       dataIndex: "game_ids",
       key: "game_ids",
-      render: (txt, record) => {
+      render: (txt: any) => {
         const games = txt.split(",");
         return (
           <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-            {games?.map((item, index) => {
+            {games?.map((item: any, index: number) => {
               return (
                 <a key={item} href={"https://baidu.com?id=" + item}>
                   {"https://baidu.com?id=" + item}
@@ -149,7 +149,7 @@ const Page: React.FC = () => {
   const getAllRecommendGames = async () => {
     try {
       setLoading(true);
-      const res = await getWeekRecommendGameList({});
+      const res: any = await getWeekRecommendGameList({});
       console.log("res");
       console.log(res);
       setRecommendGameList(res?.data);
@@ -160,7 +160,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const initForm = (rcd) => {
+  const initForm = (rcd: any) => {
     searchGameByIds(rcd?.game_ids);
     setCover(rcd?.cover_url);
     createForm.setFieldsValue({
@@ -218,7 +218,7 @@ const Page: React.FC = () => {
       }
       setButtonLoading(true);
       if (record?.id) {
-        const res = await updateOne({
+        const res: any = await updateOne({
           id: record?.id,
           game_ids: values?.game_ids?.join(","),
           cover_url: cover,
@@ -231,7 +231,7 @@ const Page: React.FC = () => {
           }, 1000);
         }
       } else {
-        const res = await createOne({
+        const res: any = await createOne({
           game_ids: values?.game_ids?.join(","),
           cover_url: cover,
           sequence: Number(values?.sequence),
@@ -249,10 +249,10 @@ const Page: React.FC = () => {
     }
   };
 
-  const deleteRecommendFunc = async (id) => {
+  const deleteRecommendFunc = async (id: any) => {
     try {
       setDeleteLoading(true);
-      const res = await deleteOne({
+      const res: any = await deleteOne({
         id: Number(id),
       });
       if (res?.code === 0) {
@@ -267,7 +267,7 @@ const Page: React.FC = () => {
     }
   };
 
-  const onPicChange: any = ({ fileList: newFileList, file }) => {
+  const onPicChange: any = ({ fileList: newFileList, file }: any) => {
     if (file.status === "done") {
       const response = file.response;
       setCoverLoading(false);

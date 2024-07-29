@@ -1,5 +1,15 @@
 "use client";
-import { Button, Col, Modal, Row, Space, Table, message } from "antd";
+import {
+  Button,
+  Col,
+  Flex,
+  Modal,
+  Row,
+  Space,
+  Spin,
+  Table,
+  message,
+} from "antd";
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/app/user/index.module.less";
@@ -10,6 +20,9 @@ import {
 } from "@/services/weekRecommend";
 import { getGameListByIds } from "@/services/game";
 import { uploadJson } from "@/services/points";
+import { usePathname } from "next/navigation";
+import { buttonPermission } from "@/utils";
+import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
 
 const Page: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,6 +31,15 @@ const Page: React.FC = () => {
   const [record, setRecord] = useState<any>();
   const [adultOpen, setAdultOpen] = useState<boolean>(false);
   const [gameList, setGameList] = useState<any[]>([]);
+
+  const [isClient, setIsClient] = useState(false);
+  const pathname: any = usePathname();
+
+  const [isOpenLoading, setIsOpenLoading] = useState<boolean>(false);
+  const [adultLoading, setAdultLoading] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(false);
+  const [jsonLoadding, setJsonLoadding] = useState<boolean>(false);
+  const [listLoading, setListLoading] = useState<boolean>(false);
 
   const columns: any = [
     {
@@ -72,15 +94,17 @@ const Page: React.FC = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <a
-            onClick={() => {
-              setRecord(record);
-              setAdultOpen(true);
-              searchGameByIds(record?.game_ids);
-            }}
-          >
-            审核
-          </a>
+          {isClient && buttonPermission(pathname, 6) ? (
+            <a
+              onClick={() => {
+                setRecord(record);
+                setAdultOpen(true);
+                searchGameByIds(record?.game_ids);
+              }}
+            >
+              审核
+            </a>
+          ) : null}
         </Space>
       ),
     },
@@ -120,6 +144,7 @@ const Page: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsClient(true);
     getAllRecommendGames();
   }, []);
 
@@ -130,21 +155,32 @@ const Page: React.FC = () => {
   const handleAdultSave = async () => {
     try {
       setAdultOpen(false);
+      setIsOpenLoading(true);
+      setAdultLoading(true);
+      setJsonLoadding(true);
+      setImgLoading(true);
+      setListLoading(true);
       const result: any = await adultWeekRecommend({
         id: record?.id,
         review_status: 3,
       });
       if (result?.data?.code === 0) {
         setAdultOpen(false);
-        getAllRecommendGames();
-        uploadJson();
-        awsWeekRecommend({
+        setAdultLoading(false);
+        await awsWeekRecommend({
           commondId: record?.id,
         });
+        setImgLoading(false);
+        await uploadJson();
+        setJsonLoadding(false);
+        await getAllRecommendGames();
+        setListLoading(false);
+        setIsOpenLoading(false);
         message.success("提交成功");
       }
     } catch (error) {
       setAdultOpen(false);
+      setIsOpenLoading(false);
     }
   };
 
@@ -185,9 +221,13 @@ const Page: React.FC = () => {
         open={adultOpen}
         onCancel={handleAdultCancle}
         footer={[
-          <Button onClick={handleAdultCancle}>取消</Button>,
-          <Button onClick={handleAdultSave}>审核通过</Button>,
-          <Button type="primary" onClick={handleAdultReject}>
+          <Button key={1} onClick={handleAdultCancle}>
+            取消
+          </Button>,
+          <Button key={2} onClick={handleAdultSave}>
+            审核通过
+          </Button>,
+          <Button key={3} type="primary" onClick={handleAdultReject}>
             审核拒绝
           </Button>,
         ]}
@@ -214,6 +254,66 @@ const Page: React.FC = () => {
             <div style={style}>
               <img src={record?.cover_url} alt="" style={{ width: "100%" }} />
             </div>
+          </Col>
+        </Row>
+      </Modal>
+      <Modal
+        title="审核中"
+        width={400}
+        open={isOpenLoading}
+        footer={[]}
+        onCancel={() => setIsOpenLoading(false)}
+      >
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              状态审核中：
+              <Spin
+                indicator={
+                  adultLoading ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              正在更新图片：
+              <Spin
+                indicator={
+                  imgLoading ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              正在同步数据：
+              <Spin
+                indicator={
+                  jsonLoadding ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              正在刷新列表：
+              <Spin
+                indicator={
+                  listLoading ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
           </Col>
         </Row>
       </Modal>

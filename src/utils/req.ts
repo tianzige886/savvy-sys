@@ -11,7 +11,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  function (conf) {
+  function (conf: any) {
     const config = conf;
     let token = window.localStorage.getItem(LOCALSTORAGE_TOKEN);
     if (token) {
@@ -19,19 +19,19 @@ instance.interceptors.request.use(
     }
     return config;
   },
-  function (error) {
+  function (error: any) {
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
-  function (response) {
+  function (response: any) {
     if (response.data.msg) {
       message.success(response.data.msg);
     }
     return response.data;
   },
-  function (error) {
+  function (error: any) {
     if (error && error.response) {
       switch (error.response.status) {
         case 401:
