@@ -89,6 +89,11 @@ const Page: React.FC = () => {
     },
     {
       title: "邀请地址",
+      dataIndex: "invite_parent_wallet",
+      key: "invite_parent_wallet",
+    },
+    {
+      title: "被邀请地址",
       dataIndex: "invite_child_wallet",
       key: "invite_child_wallet",
     },

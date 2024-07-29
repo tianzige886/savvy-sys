@@ -24,6 +24,8 @@ import { getThemeBg } from "@/utils";
 // import { Link, pathnames, usePathname } from "../../navigation";
 import styles from "./index.module.less";
 import { LOCALSTORAGE_TOKEN, LOCALSTORAGE_USER } from "@/constants";
+import { getLoginUserPermits } from "@/services/users";
+import { stringify } from "flatted";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -68,6 +70,8 @@ const CommonLayout: React.FC<IProps> = ({
   } = theme.useToken();
 
   const [user, setUser] = useState<any>();
+  const [permits, setPermits] = useState<any[]>([]);
+  const [parent, setParent] = useState<any>("/");
 
   // const t = useTranslations("global");
 
@@ -75,7 +79,7 @@ const CommonLayout: React.FC<IProps> = ({
   // const otherLocale: any = locale === "en" ? ["zh", "中"] : ["en", "En"];
 
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname: any = usePathname();
   const navList = getNavList();
 
   const [curTheme, setCurTheme] = useState<boolean>(false);
@@ -89,11 +93,65 @@ const CommonLayout: React.FC<IProps> = ({
     router.push(row.key);
   };
 
+  const getUserPermissions = async (userId: string, role_id: string) => {
+    if (Number(role_id) > 0) {
+      return setPermits(navList);
+    }
+    const res: any = await getLoginUserPermits(userId);
+    if (res.data.code === 0) {
+      const list = res?.data?.list || [];
+      const navigates = [...navList];
+      navigates.forEach((parent: any) => {
+        parent.children = parent.children.filter((child: any) => {
+          return list.some((item: any) => {
+            return item.name == child.name;
+          });
+        });
+      });
+      const navigate_list: any = [];
+      navigates.forEach((n: any) => {
+        if (n.children.length > 0) {
+          navigate_list.push(n);
+        }
+      });
+      const localUser: any = [];
+      list.forEach((item: any) => {
+        const object: any = {};
+        object.name = item.name;
+        object.path = item.path;
+        object.buttons = item.buttons.map((b: any) => b.id).join(",");
+        localUser.push(object);
+      });
+      window.localStorage.setItem(
+        "user_permission_list",
+        JSON.stringify(localUser)
+      );
+      const copy_list = navigate_list.map((item: any) => ({ ...item }));
+      copy_list.forEach((n: any, index: any) => {
+        n.icon = null;
+      });
+      window.sessionStorage.setItem(
+        "user_navigate_list",
+        JSON.stringify(copy_list)
+      );
+
+      setPermits(navigate_list);
+    }
+  };
+
   useEffect(() => {
     const isDark = !!localStorage.getItem("isDarkTheme");
     setCurTheme(isDark);
     const userInfo: any = window.localStorage.getItem(LOCALSTORAGE_USER);
     setUser(JSON.parse(userInfo));
+    const user = JSON.parse(userInfo);
+    const sessionNavigates =
+      window.sessionStorage.getItem("user_navigate_list");
+    const sessionNav = sessionNavigates ? JSON.parse(sessionNavigates) : [];
+    if (sessionNav.length > 0) {
+      setPermits(sessionNav);
+    }
+    getUserPermissions(user.uid, user.role_id);
   }, []);
 
   return (
@@ -116,9 +174,9 @@ const CommonLayout: React.FC<IProps> = ({
           <Menu
             theme={curTheme ? "dark" : "light"}
             mode="inline"
-            defaultSelectedKeys={[curActive]}
-            items={navList}
-            defaultOpenKeys={defaultOpen}
+            defaultSelectedKeys={[pathname]}
+            items={permits}
+            defaultOpenKeys={[pathname]}
             onSelect={handleSelect}
           />
         </Sider>

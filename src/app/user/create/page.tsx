@@ -1,15 +1,26 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button, Form, message, Input } from "antd";
 import React from "react";
 import Layout from "@/components/Layout";
 import { SubmitValuesType } from "./CreateUserModal.type";
 import { CreateUser } from "@/services/users";
 import JsMd5 from "js-md5";
+import { usePathname } from "next/navigation";
+import PermitButton from "@/components/button";
+import { buttonPermission } from "@/utils";
 
 const Page: React.FC = () => {
   const [form] = Form.useForm();
   const [initPassword, setInitPassword] = useState<string>("balance.game111");
+
+  const pathname: any = usePathname();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const onFinish = async (values: SubmitValuesType) => {
     const pass = mixPassword(values.username);
     try {
@@ -60,9 +71,14 @@ const Page: React.FC = () => {
             <Input placeholder={"password"} disabled={true} />
           </Form.Item>
         </Form>
-        <Button type={"primary"} onClick={() => form.submit()}>
+        <PermitButton
+          type={"primary"}
+          onClick={() => form.submit()}
+          path={pathname}
+          permit={2}
+        >
           提交
-        </Button>
+        </PermitButton>
       </div>
     </Layout>
   );

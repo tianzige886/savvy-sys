@@ -4,7 +4,7 @@ import { LOCALSTORAGE_TOKEN } from "@/constants/index";
 
 const instance = axios.create({
   // baseURL: process.env.BASE_API_URL,
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     post: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
   },

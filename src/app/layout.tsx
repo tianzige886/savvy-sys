@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 // import {
 //   getTranslations
 // } from 'next-intl/server';
@@ -18,15 +18,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     // metadataBase: new URL('http://localhost:3000'),
-    title: "Balance Management",
+    title: "Blance.game",
     description: "",
   };
 }
 
-export default function BasicLayout({ children }: Readonly<Props>) {
+export default function BasicLayout({children}: Readonly<Props>) {
   return (
     <html>
-      <head></head>
+      <head>
+      </head>
       <body className={inter.className}>
         <AntdRegistry>{children}</AntdRegistry>
       </body>

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a4dd01f8-3f4b-4770-bf02-f03320f9e641" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +11,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -25,7 +32,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/user" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages/api/game" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -36,9 +43,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/user" />
-      <recent name="$PROJECT_DIR$/src/app/user/manage/components" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pages/api/game" />
+      <recent name="$PROJECT_DIR$/pages/api/weekRecommend" />
+      <recent name="$PROJECT_DIR$/pages/api" />
+      <recent name="$PROJECT_DIR$/src/services" />
+      <recent name="$PROJECT_DIR$/src/app/marketing/weekRecommend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app/user/create" />
@@ -57,8 +66,18 @@
       <workItem from="1720434230798" duration="1443000" />
       <workItem from="1720490592040" duration="6622000" />
       <workItem from="1720577019730" duration="15194000" />
-      <workItem from="1720665742444" duration="1569000" />
-      <workItem from="1720779276907" duration="85000" />
+      <workItem from="1720665742444" duration="380000" />
+      <workItem from="1721187658379" duration="7500000" />
+      <workItem from="1721264959833" duration="30565000" />
+      <workItem from="1721485978290" duration="15152000" />
+      <workItem from="1721616155281" duration="24117000" />
+      <workItem from="1721658163078" duration="487000" />
+      <workItem from="1721700951457" duration="23565000" />
+      <workItem from="1721739566745" duration="9844000" />
+      <workItem from="1721786868730" duration="36667000" />
+      <workItem from="1721872904582" duration="22871000" />
+      <workItem from="1721959535478" duration="2937000" />
+      <workItem from="1721972322361" duration="2205000" />
     </task>
     <servers />
   </component>

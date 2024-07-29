@@ -11,3 +11,6 @@ export const ResetPassword = (username: string, password: string) =>
   req.post("/api/reset_password", qs.stringify({ username, password }));
 
 export const getUserInfo = () => req.get("/api/user_info");
+
+export const getLoginUserPermits = (userId: string) =>
+  req.post("/api/user/user_permits", { userId });
