@@ -143,23 +143,6 @@ const Page: React.FC = () => {
           }
         }
       });
-      // const detail = d;
-      // form.setFieldsValue({
-      //   name: detail?.name,
-      //   networks: detail?.networks?.split(","),
-      //   languages: detail?.languages?.split(","),
-      //   status: detail?.status + "-" + detail?.status_name,
-      //   token: detail?.token + "-" + detail?.token_name,
-      //   platform: detail?.platform,
-      //   size: detail?.size,
-      //   website: detail?.website,
-      //   release_time: detail?.release_time && dayjs(detail?.release_time),
-      //   media: detail?.media,
-      //   introduction: detail?.introduction,
-      //   short_introduction: detail?.short_introduction,
-      //   gameplay_description: detail?.gameplay_description,
-      //   tags: detail?.tags && JSON.parse(detail?.tags),
-      // });
     } catch (e) {
       console.log(e);
     }

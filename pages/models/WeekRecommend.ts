@@ -16,6 +16,7 @@ export class WeekRecommend extends Model<
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
   declare game_ids: string;
+  declare is_set_home: number;
   declare sequence: number | null;
   declare review_status: number | null;
 
@@ -37,6 +38,11 @@ export class WeekRecommend extends Model<
         sequence: {
           type: DataTypes.INTEGER,
           allowNull: true,
+        },
+        is_set_home: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          defaultValue: 0,
         },
         created_at: {
           type: DataTypes.DATE,
