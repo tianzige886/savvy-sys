@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 
 export default authMiddleware(async (req: any, res: any) => {
   try {
-    const { id = "", review_status = "" } = req.body;
+    const { id = "", review_status = "" } = req?.body;
     const user: any = await HomeBanner.findByPk(id);
     await user.update({ review_status });
     res.status(200).json({ data: { message: "ok", code: 0 } });

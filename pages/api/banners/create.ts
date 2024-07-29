@@ -3,8 +3,8 @@ import { models } from "../../config/db";
 const { HomeBanner } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
-  const { sequence, game_id } = req.body;
+export default authMiddleware(async (req: any, res: any) => {
+  const { sequence, game_id } = req?.body;
 
   try {
     // @ts-ignore

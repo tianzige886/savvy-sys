@@ -4,7 +4,7 @@ const { Game } = models;
 const { Op } = require("sequelize");
 import { FindOptions } from "sequelize";
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   const id: number = Number(req.query?.id);
 
   if (isNaN(id)) {

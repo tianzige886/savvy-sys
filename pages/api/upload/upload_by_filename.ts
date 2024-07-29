@@ -1,6 +1,6 @@
 import { authMiddleware } from "../../lib/middleware";
 const { Op } = require("sequelize");
-import { uploadByFilename } from "../../utils/upload";
+import { uploadByFilename } from "../upload";
 
 export default authMiddleware(async (req: any, res: any) => {
   try {

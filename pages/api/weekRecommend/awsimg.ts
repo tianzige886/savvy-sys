@@ -2,7 +2,7 @@ import { authMiddleware } from "../../lib/middleware";
 const { Op } = require("sequelize");
 import { models } from "../../config/db";
 const { WeekRecommend } = models;
-import { uploadByFilename } from "../../utils/upload";
+import { uploadByFilename } from "../upload";
 import { FindOptions } from "sequelize";
 
 export default authMiddleware(async (req: any, res: any) => {

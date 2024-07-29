@@ -3,7 +3,7 @@ import { models, sequelize } from "../../config/db";
 const { UserButtonPermission, UserMenuPermission } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   try {
     const { data } = req.body;
     const params = JSON.parse(data);

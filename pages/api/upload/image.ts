@@ -1,6 +1,6 @@
 import { authMiddleware } from "../../lib/middleware";
 const { Op } = require("sequelize");
-import { upload } from "../../utils/upload";
+import { upload } from "../upload";
 
 // 处理 multipart/form-data 请求
 export const config = {

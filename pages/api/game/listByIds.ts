@@ -3,7 +3,7 @@ import { models } from "../../config/db";
 const { Game } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   try {
     const { ids } = req.query;
     if (!ids) {

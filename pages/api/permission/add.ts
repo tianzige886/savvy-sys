@@ -3,7 +3,7 @@ import { models, sequelize } from "../../config/db";
 const { Button, Menu } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   try {
     const { buttons = "", name = "", path = "", label = "" } = req.body;
 

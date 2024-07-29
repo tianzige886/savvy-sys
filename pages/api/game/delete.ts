@@ -3,7 +3,7 @@ import { models } from "../../config/db";
 const { User } = models;
 const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
+export default authMiddleware(async (req: any, res: any) => {
   try {
     const { id = "" } = req.body;
     const user: any = await User.findByPk(id);

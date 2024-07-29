@@ -1,10 +1,11 @@
 import { authMiddleware } from "../../lib/middleware";
 import { models, sequelize } from "../../config/db";
+import { Sequelize, QueryTypes } from "sequelize";
 // const { HomeBanner } = models;
 // const { Op } = require("sequelize");
 
-export default authMiddleware(async (req, res) => {
-  const { review_status } = req.query;
+export default authMiddleware(async (req: any, res: any) => {
+  const { review_status } = req?.query;
 
   let query = "";
   if (review_status) {
@@ -25,7 +26,7 @@ export default authMiddleware(async (req, res) => {
     // });
     // @ts-ignore
     const homeBannersWithGames = await sequelize.query(query, {
-      type: sequelize.QueryTypes.SELECT,
+      type: QueryTypes?.SELECT,
     });
     res
       .status(200)
