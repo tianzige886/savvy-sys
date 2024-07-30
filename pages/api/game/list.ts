@@ -14,7 +14,7 @@ export default authMiddleware(async (req: any, res: any) => {
     }
     // review_status: 1 待审核, 2 审核中，3 已上架， 4 审核失败， 5 已下架
     if (review_status) {
-      where.review_status = review_status;
+      where.review_status = parseInt(review_status);
     }
     // 获取总记录数
     const totalCount = await Game.count({ where });

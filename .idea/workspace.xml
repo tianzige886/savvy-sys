@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a4dd01f8-3f4b-4770-bf02-f03320f9e641" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/game/awsimg.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/game/awsimg.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/permission/add_permissions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/permission/add_permissions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/user/user_permits.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/user/user_permits.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/marketing/banners/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/marketing/banners/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/marketing/hot/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/marketing/hot/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/marketing/recommend/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/marketing/recommend/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/marketing/weekRecommend/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/marketing/weekRecommend/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/req.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/req.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +32,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages/api/game" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages/api/weekRecommend" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -51,8 +43,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pages/api/game" />
       <recent name="$PROJECT_DIR$/pages/api/weekRecommend" />
+      <recent name="$PROJECT_DIR$/pages/api/game" />
       <recent name="$PROJECT_DIR$/pages/api" />
       <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/app/marketing/weekRecommend" />
@@ -87,7 +79,8 @@
       <workItem from="1721872904582" duration="22871000" />
       <workItem from="1721959535478" duration="2937000" />
       <workItem from="1721972322361" duration="2205000" />
-      <workItem from="1722224499730" duration="19732000" />
+      <workItem from="1722224499730" duration="32923000" />
+      <workItem from="1722324721475" duration="3082000" />
     </task>
     <servers />
   </component>

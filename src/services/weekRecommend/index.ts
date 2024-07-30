@@ -12,3 +12,5 @@ export const adultWeekRecommend = (params: any) =>
   req.post("/api/weekRecommend/adult", params);
 export const awsWeekRecommend = (params: any) =>
   req.post("/api/weekRecommend/awsimg", params);
+export const setHomeBanner = (params: any) =>
+  req.post("/api/weekRecommend/set_home_banner", params);

@@ -2,9 +2,10 @@ import { createServer } from "https";
 import { parse } from "url";
 import next from "next";
 import fs from "fs";
+import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
-const port = 443;
+const port = 8886;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -15,9 +16,12 @@ import { initModels } from "./pages/models";
 // import { sequelize } from "./pages/config/db";
 import { sequelize, models } from "./pages/config/db";
 
+const keyPath = path.join(__dirname, "localhost+2-key.pem");
+const certPath = path.join(__dirname, "localhost+2.pem");
+
 const httpsOptions = {
-  key: fs.readFileSync("localhost+2-key.pem"),
-  cert: fs.readFileSync("localhost+2.pem"),
+  key: fs.readFileSync(keyPath),
+  cert: fs.readFileSync(certPath),
 };
 
 // 检查表是否存在，不存在根据数据模型自动创建

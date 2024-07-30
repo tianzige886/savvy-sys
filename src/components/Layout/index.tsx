@@ -151,7 +151,7 @@ const CommonLayout: React.FC<IProps> = ({
     if (sessionNav.length > 0) {
       setPermits(sessionNav);
     }
-    getUserPermissions(user.uid, user.role_id);
+    getUserPermissions(user?.uid, user?.role_id);
   }, []);
 
   return (

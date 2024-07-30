@@ -9,12 +9,18 @@ import {
   Space,
   Table,
   message,
+  Flex,
+  Spin,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getGameList, adultGame } from "@/services/game";
 import styles from "@/app/user/index.module.less";
+import PermitButton from "@/components/button";
+import { buttonPermission } from "@/utils";
+import { uploadJson } from "@/services/points";
+import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
 
 const Page: React.FC = () => {
   const [form] = Form.useForm();
@@ -24,6 +30,16 @@ const Page: React.FC = () => {
   const [total, setTotal] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const pageSize: number = 20;
+  const pathname: any = usePathname();
+  const [isClient, setIsClient] = useState(false);
+  const [downOpen, setDwonOpen] = useState(false);
+  const [downLoading, setDownLoading] = useState(false);
+  const [dataRecord, setDataRecord] = useState<any>({});
+
+  const [isOpenLoading, setIsOpenLoading] = useState<boolean>(false);
+  const [adultLoading, setAdultLoading] = useState<boolean>(false);
+  const [jsonLoadding, setJsonLoadding] = useState<boolean>(false);
+  const [listLoading, setListLoading] = useState<boolean>(false);
 
   // review_status: 1 待审核, 2 审核中，3 已上架， 4 审核失败， 5 已下架
   const reviewStatusText: any = {
@@ -106,29 +122,42 @@ const Page: React.FC = () => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <a
-            onClick={() => {
-              router.push("/games/createAndEdit?id=" + record?.id);
-            }}
-          >
-            编辑
-          </a>
-          {(record.review_status === 1 || record.review_status === 4) && (
-            <a
-              onClick={() => {
-                adultGame({ id: record?.id, review_status: 2 }).then(
-                  (res: any) => {
-                    if (res?.data?.code === 0) {
-                      getData();
-                      message.success("提交成功");
+          {record.review_status !== 3 &&
+            isClient &&
+            buttonPermission(pathname, 4) && (
+              <a
+                onClick={() => {
+                  router.push("/games/createAndEdit?id=" + record?.id);
+                }}
+              >
+                编辑
+              </a>
+            )}
+          {record.review_status === 3 &&
+            isClient &&
+            buttonPermission(pathname, 8) && (
+              <a onClick={() => undercarriage(record)}>下架</a>
+            )}
+          {(record.review_status === 1 ||
+            record.review_status === 4 ||
+            record.review_status === 5) &&
+            isClient &&
+            buttonPermission(pathname, 7) && (
+              <a
+                onClick={() => {
+                  adultGame({ id: record?.id, review_status: 2 }).then(
+                    (res: any) => {
+                      if (res?.data?.code === 0) {
+                        getData();
+                        message.success("提交成功");
+                      }
                     }
-                  }
-                );
-              }}
-            >
-              提交审核
-            </a>
-          )}
+                  );
+                }}
+              >
+                提交审核
+              </a>
+            )}
           {/*<a*/}
           {/*  className={styles.error}*/}
           {/*  onClick={() => {*/}
@@ -141,6 +170,44 @@ const Page: React.FC = () => {
       ),
     },
   ];
+
+  const undercarriage = (record: any) => {
+    setDwonOpen(true);
+    setDataRecord(record);
+  };
+
+  const handleCancel = () => {
+    setDwonOpen(false);
+  };
+  // review_status: 1 待审核, 2 审核中，3 已上架， 4 审核失败， 5 已下架
+  const handleOk = async () => {
+    try {
+      setDwonOpen(false);
+
+      setIsOpenLoading(true);
+      setAdultLoading(true);
+      setJsonLoadding(true);
+      setListLoading(true);
+      const result: any = await adultGame({
+        id: dataRecord?.id,
+        review_status: 5,
+      });
+      setDwonOpen(false);
+      setAdultLoading(false);
+      if (result?.data?.code === 0) {
+        await uploadJson();
+        setJsonLoadding(false);
+        await getData();
+        setListLoading(false);
+        setIsOpenLoading(false);
+        message.success("下架成功");
+      }
+    } catch (error) {
+      setDwonOpen(false);
+      setIsOpenLoading(false);
+      message.error("下架失败");
+    }
+  };
 
   const getData = async () => {
     try {
@@ -165,6 +232,7 @@ const Page: React.FC = () => {
   }, [pageNumber]);
 
   useEffect(() => {
+    setIsClient(true);
     getData();
   }, []);
 
@@ -173,12 +241,14 @@ const Page: React.FC = () => {
       <Form form={form}>
         <Row gutter={24}>
           <Col span={4}>
-            <Button
+            <PermitButton
               onClick={() => router.push("/games/createAndEdit")}
               type={"primary"}
+              path={pathname}
+              permit={2}
             >
               新增
-            </Button>
+            </PermitButton>
           </Col>
         </Row>
       </Form>
@@ -186,6 +256,7 @@ const Page: React.FC = () => {
       <Table
         columns={columns}
         dataSource={data}
+        rowKey={(record) => record.id}
         pagination={{
           showQuickJumper: false,
           showTotal: () => `共${total}条`,
@@ -194,6 +265,73 @@ const Page: React.FC = () => {
           onChange: (current) => changePage(current), //点击当前页码
         }}
       />
+      <Modal
+        title="下架游戏"
+        open={downOpen}
+        onCancel={handleCancel}
+        footer={[
+          <Button key={1} onClick={handleCancel}>
+            取消
+          </Button>,
+          <Button
+            key={2}
+            type="primary"
+            loading={downLoading}
+            onClick={handleOk}
+          >
+            下架
+          </Button>,
+        ]}
+      >
+        <p>确定要下架当前游戏？</p>
+      </Modal>
+      <Modal
+        title="审核中"
+        width={400}
+        open={isOpenLoading}
+        footer={[]}
+        onCancel={() => setIsOpenLoading(false)}
+      >
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              状态审核中：
+              <Spin
+                indicator={
+                  adultLoading ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              正在同步数据：
+              <Spin
+                indicator={
+                  jsonLoadding ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={24} style={{ padding: "10px 0" }}>
+            <Flex align="center" justify="center" gap="middle">
+              正在刷新列表：
+              <Spin
+                indicator={
+                  listLoading ? <LoadingOutlined spin /> : <CheckOutlined />
+                }
+                size="small"
+              />
+            </Flex>
+          </Col>
+        </Row>
+      </Modal>
     </Layout>
   );
 };

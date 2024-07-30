@@ -5,25 +5,30 @@ const { Op } = require("sequelize");
 
 export default authMiddleware(async (req: any, res: any) => {
   try {
-    const { ids = "" } = req.query;
+    const { ids = "", review_status } = req.query;
     if (!ids) {
       return;
     }
-    // const idddds = ids.split(",").map((item: any) => {
-    //   return parseInt(item, 10);
-    // });
+
+    const where = {
+      id: {
+        [Op.in]: ids.split(",").map((item: string) => {
+          return parseInt(item, 10);
+        }),
+      },
+    };
+
+    if (review_status) {
+      // @ts-ignore
+      where.review_status = review_status;
+    }
 
     // @ts-ignore
     const game = await Game.findAll({
-      where: {
-        id: {
-          [Op.in]: ids.split(",").map((item: string) => {
-            return parseInt(item, 10);
-          }),
-        },
-      },
+      where,
       order: [["updated_at", "DESC"]],
     });
+
     res.status(200).json({
       data: game,
       code: 0,
