@@ -322,7 +322,7 @@ const Page: React.FC = () => {
 
   // rowSelection object indicates the need for row selection
   const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: any) => {
       console.log(
         `selectedRowKeys: ${selectedRowKeys}`,
         "selectedRows: ",
